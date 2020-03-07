@@ -1,0 +1,70 @@
+# 组件名称，
+# 若为 solution、chip、board，则表示应用名称、芯片名称、开发板名称;
+# common类型组件，即为组件名
+name: ZHANGYUJIE_MCU_TEST
+description: zuixin de banben
+# 这里是组件类型 包含 solution、chip、board、common
+type: common
+hidden: 'false'   #默认不填或false显示，如果为true 不显示，不在occ中显示
+#suitableChip: #suitableChip仅common组件有效，
+#  - ch2201
+ # - cs5654
+#field:            #领域仅common组件有效，如果领域内容不在定义范围内，不存储。
+#   -智慧社区
+###   -智能家居
+tag: 第三方驱动       #tag仅common组件有效，如果tag内容不在定义范围内，默认保存到通用组件。 
+
+keywords:                                     # 多标签
+  - chip
+  - SDK
+author: Peter.Jiang
+license: MIT                    # GPLv2，LGPLv2.1，MIT，Apache license v2.0，BSD
+
+homepage: https://occ.t-head.cn
+logo: https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2197321471,577993039&fm=11&gp=0.jpg
+
+# chip类型的组件，比其他组件多包涵chip节点：
+# CHIP 组件需要指定的信息
+chip:                                          # 芯片信息
+  cpu_name: 'CK802'
+  # 厂商名：可选
+  vendor_name: 'csky'
+  # 指定ld文件相对于当前组件根目录的文件名
+  ld_script: 'ckcpu.ld'
+
+
+#depends:                                       # <可选项> 该组件依赖其他的组件，合理的依赖才能保证组件能编译、使用
+#  - lwip: '7.0'              				   # 因为规定组件版本为Tag名称，所以这类不是数字，是字符串
+
+# 其他YoC保留的节点，在CDK中不会修改
+# SoC 的全局配置生成 soc_config.h
+soc_config:                                    # <可选项> SoC 配置
+  CONFIG_DEBUG: y
+  CONFIG_PARAM_NOT_CHECK: y
+  CONFIG_CLI: y
+
+# yoc_version 有两种配置，common组件是数组，其他组件是单个元素
+#yoc_version: #这种是common类型的组件
+#  - 7.0
+ # - 7.1
+#下面的格式是其他类型的组件
+#yoc_version: 7.0  
+
+
+build_config:
+  include: ''
+  cflag: ''                           # C 编译器所需要要的编译参数
+  cxxflag: ''                         # CXX 编译器所需要要的编译参数
+  asmflag: ''                            # 汇编器所需要要参数
+  define:  ''                             # 宏定义
+
+source_file:
+  - "*.*"                                      # 支持通配符与正则表达示
+  - "include/*.h"
+  - "FWlib/*.c"
+  
+install:
+  - dest: "include/"
+    source:
+      - ezxml.h
+      - '*.c'
